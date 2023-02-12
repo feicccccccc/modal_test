@@ -1,16 +1,19 @@
-# This is a sample Python script.
+"""
+Template to run a function on modal
+modal run main.py
+"""
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import modal
+
+stub = modal.Stub("example-get-started")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+@stub.function
+def square(x):
+    print("This code is running on a remote worker!")
+    return x**2
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+@stub.local_entrypoint
+def main():
+    print("the square is", square.call(42))
